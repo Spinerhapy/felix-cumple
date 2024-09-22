@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Cumpleaños Nicol</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        .scene {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 1s;
+        }
+        .visible {
+            display: flex;
+        }
+        .fade {
+            opacity: 0;
+        }
+        .balloons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .balloon {
+            width: 100px;
+            height: 150px;
+            background-color: rgba(255, 182, 193, 0.7);
+            border-radius: 50%;
+            position: absolute;
+            animation: float 8s ease-in-out infinite;
+        }
+        .balloon:nth-child(2) { left: 20%; animation-delay: 1s; background-color: rgba(173, 216, 230, 0.7); }
+        .balloon:nth-child(3) { left: 40%; animation-delay: 2s; background-color: rgba(144, 238, 144, 0.7); }
+        .balloon:nth-child(4) { left: 60%; animation-delay: 3s; background-color: rgba(255, 228, 181, 0.7); }
+        .balloon:nth-child(5) { left: 80%; animation-delay: 4s; background-color: rgba(255, 182, 193, 0.7); }
+
+        @keyframes float {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-100vh); }
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+        }
+        .button {
+            padding: 15px 30px;
+            background-color: white;
+            color: black;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #ddd;
+        }
+
+        .final-message {
+            animation: slideUp 2s ease-in-out;
+        }
+        @keyframes slideUp {
+            0% {
+                transform: translateY(100vh);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .flowers {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 0;
+        }
+        .flower {
+            width: 70px;
+            height: 70px;
+            background: url('https://i.imgur.com/7L89fp1.png');
+            position: absolute;
+            animation: sway 3s infinite ease-in-out;
+        }
+        .flower:nth-child(1) { left: 10%; animation-delay: 0.5s; }
+        .flower:nth-child(2) { left: 30%; animation-delay: 1s; }
+        .flower:nth-child(3) { left: 50%; animation-delay: 1.5s; }
+        .flower:nth-child(4) { left: 70%; animation-delay: 2s; }
+        .flower:nth-child(5) { left: 90%; animation-delay: 2.5s; }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-15deg); }
+            50% { transform: rotate(15deg); }
+        }
+
+        .cake {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            border-radius: 50%;
+            margin: 30px auto;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Reproducir música -->
+    <audio autoplay loop>
+        <source src="c:\Users\spiner\Desktop\audio\audio.mpeg" type="audio/mpeg">
+    </audio>
+
+    <!-- Escena 1: Pregunta inicial -->
+    <div class="scene visible" id="scene1">
+        <h1>¿Aceptas, sí o no?</h1>
+        <div class="button-container">
+            <button class="button" onclick="nextScene('scene1.5')">Sí</button>
+            <button class="button" onclick="nextScene('catScene')">No</button>
+        </div>
+    </div>
+
+    <!-- Escena 1.5: Globos y cumpleaños -->
+    <div class="scene fade" id="scene1.5">
+        <h1>¡Feliz Cumpleaños Nicol!</h1>
+        <div class="balloons">
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+        </div>
+        <div class="button-container">
+            <button class="button" onclick="nextScene('scene2.1')">Siguiente</button>
+        </div>
+    </div>
+
+    <!-- Escena Cat (gato enojado) -->
+    <div class="scene fade" id="catScene">
+        <h1>¡No aceptaste!</h1>
+        <img src="https://i.imgur.com/3XYOaLF.png" alt="Gato enojado" style="width:300px; height:auto;">
+    </div>
+
+    <!-- Escena 2.1: Interacción -->
+    <div class="scene fade" id="scene2.1">
+        <h1>¿Ya estás vieja, no?</h1>
+        <div class="button-container">
+            <button class="button" onclick="nextScene('scene2.2')">Sí</button>
+            <button class="button" onclick="nextScene('scene3')">Ya tengo mis 50 años</button>
+        </div>
+    </div>
+
+    <!-- Escena 2.2: Lo suponía -->
+    <div class="scene fade" id="scene2.2">
+        <h1>Lo suponía</h1>
+        <div class="button-container">
+            <button class="button" onclick="nextScene('scene3')">Siguiente</button>
+        </div>
+    </div>
+
+    <!-- Escena 3: Mensaje final -->
+    <div class="scene fade" id="scene3">
+        <h1 class="final-message">Feliz cumpleaños a ti!! Nicol, hoy es un día especial, cada vez estás más cerca de la muerte y más lejos de la juventud, jaja. Bueno, espero que tengas un día maravilloso, que la pases bien con tu familia y amigos, que sigas estudiando, que logres tus metas, que no dejes que nada ni nadie detenga tus ganas de aprender.</h1>
+        <div class="button-container">
+            <button class="button" onclick="nextScene('scene4')">Siguiente</button>
+        </div>
+    </div>
+
+    <!-- Escena 4: Pastel y flores -->
+    <div class="scene fade" id="scene4">
+        <h1>¡Feliz cumpleaños Nicol!</h1>
+        <div class="cake">
+            <img src="c:\Users\spiner\Desktop\nicol.jp\nicol.jpg" alt="Pastel de cumpleaños">
+        </div>
+        <div class="flowers">
+            <div class="flower"></div>
+            <div class="flower"></div>
+            <div class="flower"></div>
+            <div class="flower"></div>
+            <div class="flower"></div>
+        </div>
+    </div>
+
+    <script>
+        function nextScene(sceneId) {
+            // Ocultar todas las escenas
+            document.querySelectorAll('.scene').forEach(scene => {
+                scene.classList.remove('visible');
+                scene.classList.add('fade');
+            });
+            // Mostrar la escena siguiente
+            document.getElementById(sceneId).classList.add('visible');
+            document.getElementById(sceneId).classList.remove('fade');
+        }
+    </script>
+
+</body>
+</html>
